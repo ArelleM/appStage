@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="sidebar" style="width:300px;height:100%;position:fixed;top:0;background: rgb(233,86,255);
+background: linear-gradient(74deg, rgba(233,86,255,1) 0%, rgba(206,7,255,1) 40%, rgba(189,89,212,1) 100%); overflow: auto;">
+
+        <a class="active" href="{{ path('home') }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Home</a>
+        {%  if app.user %}
+        <a href="{{ path('admin.profile.show', {id: app.user.id}) }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Voir mon profil</a>
+        <a href="{{ path('admin.offer.index', {id: app.user.id}) }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Voir mes offres</a>
+        <a href="{{ path('admin.offer.new') }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Créer une offre de stage</a>
+        {% endif %}
+    </div>
+
+
+    <div class="container"> 
+    <h2>Les dernières offres de stage</h2>
+    {%  for offer in offers %}
+        <div class ="col-3">
+            <div class="card">
+                <div ><img class="card-img-top" src="" alt=""></div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path('offer.show', {id: offer.id, slug: offer.slug}) }}"> {{ offer.title }} </a>
+                    </h5>
+                    <p class="card-text">{{ offer.city }}  ( {{ offer.postalCode }} )</p>
+                    <div class="text-primary"> {{ offer.duration }} semaines</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

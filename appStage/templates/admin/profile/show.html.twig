@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="/css/profile/main.css">
+{% endblock %}
+{% block body %}
+
+	<div class="sidebar" style="width:300px;height:100%;position:fixed;top:0;background: rgb(233,86,255);
+background: linear-gradient(74deg, rgba(233,86,255,1) 0%, rgba(206,7,255,1) 40%, rgba(189,89,212,1) 100%); overflow: auto;">
+		<a class="active" href="{{ path('home') }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Home</a>
+		<a href="{{ path('admin.profile.show', {id: app.user.id}) }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Voir mon profil</a>
+		<a href="{{ path('admin.offer.index', {id: app.user.id}) }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Voir mes offres</a>
+		<a href="{{ path('admin.offer.new') }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Créer une offre de stage</a>
+	</div>
+
+
+	
+
+		<div class="container border rounded" style="background-color: white;margin-left:300px;width: auto;max-width: initial;">
+		
+			<div class="card col-md-10 mx-auto border-0 " >
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success" style="margin-top: 20px;">
+						{{ message }}
+					</div>
+				{% endfor %}
+				<div class="row mt-5 ">
+					<div class="container col-sm-4" >
+					{{ form_start(formImage, {'attr':{'id':'edit_profile_image'}}) }}
+						{%  if user.filename %}
+							<img src="/images/profiles/{{ user.filename }}" class="card-img-top rounded-circle" style="max-width: 10em; margin-left: 10em;" onclick="$('#edit_profile_image_imageFile_file').click();">
+						{% else %}
+							<img src="/images/default-avatar.png" class="card-img-top rounded-circle "  alt="..." onclick="$('#edit_profile_image_imageFile_file').click();">
+						{% endif %}
+					{{ form_end(formImage) }}
+					</div>
+			
+					<div class="container col-sm-6 ">
+						<h3 class="card-title font-weight-bold text-center" style="color: rgb(75, 35, 84)">{{ user.username }} -
+						{%  if is_granted('ROLE_STUDENT') %}
+							Etudiant
+						{% endif %}
+						{%  if is_granted('ROLE_COMPANY') %}
+							Entreprise
+						{% endif %}
+						</h3>
+
+						<h3 class=" text-center" style="color: rgb(75, 35, 84)">{{ user.firstname }} {{ user.lastname }}</h3>
+
+						<p class="text-center" style="margin-top: 20px">{{ user.description }}</p>
+					</div>
+				</div>
+				<div class="dropdown-divider"></div>
+				<ul class="list-group list-group-flush">
+				
+					<li class="list-group-item" >
+					
+							<h5 class="card-title">Informations personnelles</h5>
+						<div class="container">
+							<div class="pb-3">
+								<div class="row ">
+									<div class="col-md-4">Email : {{ user.email }}</div>
+									<div class="col-md-4">Téléphone : {{ user.phone }}</div>
+								</div>
+							
+							</div>
+							<div class="dropdown-divider"></div>
+							<div class="pt-3">
+								<div class="row  ">
+									<div class="col-md-8">Adresse : {{ user.address }}</div>
+								</div>
+								<div class="row ml-1">
+									<div class="col-md-4 ml-5 pl-3" >{{ user.postalCode }} {{ user.city}}</div>
+									<div class="col-md-4 ">Pays : {{ user.country }}</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item row">
+						<h5 class="card-title">Mot de passe</h5>
+						<div class="row align-items-center">
+						
+							<div class="col-md-7">
+							
+							{{ form_start(form) }}
+								<div class="container">
+									<div class="col-md-8">{{ form_row(form.plainPassword) }}</div>
+					
+								</div>
+							</div>
+							<button class="btn btn-primary col-md-3 mt-5  " style="height:3em; background-color: #bd59d4;border: none;border-radius: 25px;box-shadow: 0 10px 30px 0px rgba(189, 89, 212, 0.5)">{{ button|default('Enregistrer') }}</button>
+						{{ form_end(form) }}
+						</div>
+					</li>
+					<li class="list-group-item">Vestibulum at eros</li>
+				</ul>
+				<div class="card-body">
+				<a href="{{ path('admin.profile.edit', {id: user.id}) }}" class ="btn btn-secondary"> Éditer mon profil</a>
+				<form method="post" action="{{  path('admin.profile.delete', {id: user.id}) }}" style="display: inline-block">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+					<button class="btn btn-danger">Supprimer mon compte</button>
+				</form>
+				</div>
+			</div>
+		</div>
+
+	
+	
+	
+	
+{% endblock %}
+{% block javascripts %}
+	<script src="/js/profile/addImage.js"></script>
+{% endblock %}

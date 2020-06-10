@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title offer.title %}
+
+{% block body %}
+    <div class="sidebar" style="width:300px;height:100%;position:fixed;top:0;background: rgb(233,86,255);
+background: linear-gradient(74deg, rgba(233,86,255,1) 0%, rgba(206,7,255,1) 40%, rgba(189,89,212,1) 100%); overflow: auto;">
+        <a class="active" href="{{ path('home') }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Home</a>
+        <a href="{{ path('admin.profile.show', {id: app.user.id}) }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Voir mon profil</a>
+        <a href="{{ path('admin.offer.index', {id: app.user.id}) }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Voir mes offres</a>
+        <a href="{{ path('admin.offer.new') }}" style="display: block;color: white;padding: 16px;text-decoration: none;">Créer une offre de stage</a>
+    </div>
+    <div class="container mt-4">
+        <h1> {{offer.title}}</h1>
+        <h1>Date de début : {{ offer.date|date('d/m/Y') }}</h1>
+        <h1>Durée: {{ offer.duration }} semaines</h1>
+        <div class="container">
+            <h1>Adresse:</h1>
+            <h5>{{ offer.address }}</h5>
+            <h5>{{ offer.postalCode }}</h5>
+            <h5>{{ offer.city }}</h5>
+        </div>
+        <h1>Description de la mission: </h1>
+        <p>{{ offer.description }}</p>
+
+    </div>
+{% endblock %}
+

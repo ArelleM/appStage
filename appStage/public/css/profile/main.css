@@ -1,0 +1,39 @@
+body {
+    background: linear-gradient(217deg, rgba(205,116,246,.8), rgba(255,0,0,0) 87.71%),
+    linear-gradient(127deg, rgba(110,198,243,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+}
+.sidenav {
+    width: 230px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.vich-image {
+    display: none;
+}
+
+.sidenav a {
+    color: red !important;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 160px; /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+legend{
+    display:none;
+}
+
