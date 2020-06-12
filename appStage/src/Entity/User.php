@@ -24,7 +24,7 @@ class User implements UserInterface, \Serializable
 	
 	/**
 	 * @var string|null
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
     private $filename;
 	
@@ -36,7 +36,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileCvname;
 
@@ -120,7 +120,7 @@ class User implements UserInterface, \Serializable
     private $companyName;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
 
@@ -395,7 +395,7 @@ class User implements UserInterface, \Serializable
     */
     public function getFileCvname(): ?string
     {
-        return $this->fileCvnamename;
+        return $this->fileCvname;
     }
 
     /**
